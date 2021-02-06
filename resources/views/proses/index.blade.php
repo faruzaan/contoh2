@@ -43,7 +43,9 @@
                     <th>Produk</th>
                     <th>User</th>
                     <th>Status</th>
+                    @if (Auth::user()->id_tipe_user == 1)
                     <th>Aksi</th>
+                    @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -61,14 +63,13 @@
                             @endif
                         </td>
                         <td>
-                            <a href="{{url("proses/$row->id_proses/edit")}}" class="btn btn-sm btn-warning">
-                                <i class="fa fa-edit"></i>
-                            </a>
-                            <form action="{{url("proses/$row->id_proses/delete")}}" method="POST" style="display: inline;">
+                        @if (Auth::user()->id_tipe_user == 1 && @$row->status == 0)
+                            <form action="{{url("proses/$row->id_proses/edit")}}" method="POST" style="display: inline;">
                                 {{csrf_field()}}
-                                {{method_field('DELETE')}}
-                                <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i>
+                                {{method_field('patch')}}
+                                <button class="btn btn-sm btn-success">Approve
                             </form>
+                        @endif
                         </td>
                     </tr>
                     @endforeach

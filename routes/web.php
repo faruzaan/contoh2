@@ -72,8 +72,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::delete('/proses/{id}/delete','ProsesController@destroy');
 
     Route::get('/tugas','TugasController@index');
-    Route::get('/tugas/{id}/start','TugasController@start');
-    Route::get('/tugas/{id}/finish','TugasController@finish');
+    Route::patch('/tugas/{id}/start','TugasController@start');
+    Route::patch('/tugas/{id}/finish','TugasController@finish');
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

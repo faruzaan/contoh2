@@ -40,6 +40,7 @@
                     <tr>
                     <th>No</th>
                     <th>Nama Produk</th>
+                    <th>Nama Varian</th>
                     <th>Tugas</th>
                     <th>User</th>
                     <th>Start</th>
@@ -49,40 +50,35 @@
                 </thead>
                 <tbody>
                     @foreach ($result as $row)
+                    @if (@$row->id_user == Auth::user()->id)
                     <tr>
                         <td>{{ !empty($i) ? ++$i : $i = 1 }}</td>
                         <td>{{@$row->produk->nama_produk}}</td>
+                        <td>{{@$row->varian->nama_varian}}</td>
                         <td>{{@$row->daftarproses->nama_proses}}</td>
                         <td>{{@$row->user->name}}</td>
+                        <td>{{@$row->start}}</td>
+                        <td>{{@$row->finish}}</td>
                         <td>
-                            @if (@$row->status == 2||3)
-                                {{@$row->updated_at}}
-                            @else
-                            <a href="{{url("tugas/$row->id_proses/start")}}" class="btn btn-sm btn-warning">
-                                <i class="fa fa-edit"></i>
-                            </a>
-                            @endif
-                        </td>
-                        <td>
-                            @if (@$row->status == 3)
-                                {{@$row->updated_at}}
-                            @else
-                            <a href="{{url("tugas/$row->id_proses/finish")}}" class="btn btn-sm btn-warning">
-                                <i class="fa fa-edit"></i>
-                            </a>
-                            @endif
-                        </td>
-                        <td>
-                            <a href="{{url("user/$row->id/edit")}}" class="btn btn-sm btn-warning">
-                                <i class="fa fa-edit"></i>
-                            </a>
-                            <form action="{{url("user/$row->id/delete")}}" method="POST" style="display: inline;">
+                            @if (@$row->start == 1)
+                            <form action="{{url("tugas/$row->id_tugas/start")}}" method="POST" style="display: inline;">
                                 {{csrf_field()}}
-                                {{method_field('DELETE')}}
-                                <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i>
+                                {{method_field('patch')}}
+                                <button class="btn btn-sm btn-success">Mulai
                             </form>
+                            @else
+                            <form action="{{url("tugas/$row->id_tugas/finish")}}" method="POST" style="display: inline;">
+                                {{csrf_field()}}
+                                {{method_field('patch')}}
+                                <button class="btn btn-sm btn-warning">Selesai
+                            </form>
+                            @endif
+
+
                         </td>
                     </tr>
+                    @endif
+
                     @endforeach
                 </tbody>
               </table>

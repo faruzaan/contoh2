@@ -14,7 +14,7 @@ class Tugas extends Model
     protected $table = 'tb_tugas';
 
     protected $fillable = [
-        'id_tugas','id_produk','id_dft_proses','id_user','id_varian'
+        'id_tugas','id_produk','id_dft_proses','id_user','id_varian','start','finish'
     ];
 
     public function user()
@@ -31,6 +31,6 @@ class Tugas extends Model
     }
     public function varian()
     {
-        return $this->hasOne('\App\Models\Produk','id_varian','id_varian');
+        return $this->hasOne('\App\Models\Varian','id_varian','id_varian');
     }
 }

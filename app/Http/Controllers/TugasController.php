@@ -8,7 +8,7 @@ class TugasController extends Controller
 {
     public function index()
     {
-        $data['result'] = \App\Models\Proses::all();
+        $data['result'] = \App\Models\Tugas::all();
         return view('tugas/index')->with($data);
     }
     public function create()
@@ -41,18 +41,9 @@ class TugasController extends Controller
     }
     public function start(Request $request,$id)
     {
-        // $rules = [
-        //     'id_tipe_user' => 'required|max:100',
-        //     'nama_depan' => 'required|max:100',
-        //     'nama_belakang' => 'required|max:100',
-        //     'email' => 'required|max:100',
-        //     'username' => 'required|max:100',
-        //     'password' => 'required|max:100'
-        // ];
-        // $this->validate($request, $rules);
-        $request->status = '2';
+        $request->start = '3';
         $input = $request->all();
-        $result = \App\Models\Proses::where('id_proses', $id)->first();
+        $result = \App\Models\Tugas::where('id_tugas', $id)->first();
         $status = $result->update($input);
 
         if ($status) return redirect('/tugas')->with('success','Data Berhasil Diubah');

@@ -40,6 +40,8 @@ class ProsesController extends Controller
         ];
         $this->validate($request, $rules);
 
+        $request['result'] = \App\Models\Proses::where('id_proses',$id)->first();
+        $request->status = "1";
         $input = $request->all();
         $result = \App\Models\Proses::where('id_proses',$id)->first();
         $status = $result->update($input);
